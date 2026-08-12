@@ -1,8 +1,5 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-
 const values = [
   {
     icon: (
@@ -56,24 +53,8 @@ const team = [
 ];
 
 export default function NosotrosPage() {
-  const pageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".nosotros-animate", {
-        y: 40,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: "power3.out",
-      });
-    }, pageRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <div ref={pageRef}>
+    <div>
       {/* Hero */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -99,10 +80,11 @@ export default function NosotrosPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8">
-            {values.map((item) => (
+            {values.map((item, index) => (
               <div
                 key={item.title}
-                className="nosotros-animate group p-8 rounded-2xl bg-gradient-to-br from-primary-50 to-white border border-primary-100 hover:shadow-xl hover:shadow-primary-100/50 transition-all duration-300 hover:-translate-y-1"
+                className="group p-8 rounded-2xl bg-gradient-to-br from-primary-50 to-white border border-primary-100 hover:shadow-xl hover:shadow-primary-100/50 transition-all duration-300 hover:-translate-y-1 animate-fadeIn"
+                style={{ animationDelay: `${index * 150}ms` }}
               >
                 <div className="w-14 h-14 bg-primary-800 rounded-xl flex items-center justify-center text-white mb-6 group-hover:bg-accent-500 transition-colors">
                   {item.icon}
@@ -136,10 +118,11 @@ export default function NosotrosPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {team.map((member) => (
+            {team.map((member, index) => (
               <div
                 key={member.name}
-                className="nosotros-animate bg-white p-6 rounded-2xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition-shadow"
+                className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition-shadow animate-fadeIn"
+                style={{ animationDelay: `${index * 150 + 200}ms` }}
               >
                 <div className="w-20 h-20 bg-primary-800 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
                   {member.name.split(" ").slice(-1)[0].charAt(0)}

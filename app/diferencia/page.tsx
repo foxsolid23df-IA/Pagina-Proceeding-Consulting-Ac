@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Link from "next/link";
-import gsap from "gsap";
 
 const stats = [
   { number: "10+", label: "Años de Experiencia" },
@@ -55,34 +53,8 @@ const reasons = [
 ];
 
 export default function DiferenciaPage() {
-  const pageRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".diferencia-animate", {
-        y: 40,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: "power3.out",
-      });
-
-      gsap.from(statsRef.current?.children || [], {
-        scale: 0.8,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: "back.out(1.7)",
-        delay: 0.3,
-      });
-    }, pageRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <div ref={pageRef}>
+    <div>
       {/* Hero */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -107,14 +79,12 @@ export default function DiferenciaPage() {
       {/* Stats */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            ref={statsRef}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
-          >
-            {stats.map((stat) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map((stat, index) => (
               <div
                 key={stat.label}
-                className="text-center p-6 bg-white rounded-2xl shadow-lg border border-gray-100"
+                className="text-center p-6 bg-white rounded-2xl shadow-lg border border-gray-100 animate-fadeIn"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="text-3xl sm:text-4xl font-bold text-accent-500 mb-2">
                   {stat.number}
@@ -130,10 +100,11 @@ export default function DiferenciaPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {reasons.map((reason) => (
+            {reasons.map((reason, index) => (
               <div
                 key={reason.title}
-                className="diferencia-animate group p-6 bg-gradient-to-br from-primary-50 to-white rounded-2xl border border-primary-100 hover:shadow-xl hover:shadow-primary-100/30 transition-all duration-300 hover:-translate-y-1"
+                className="group p-6 bg-gradient-to-br from-primary-50 to-white rounded-2xl border border-primary-100 hover:shadow-xl hover:shadow-primary-100/30 transition-all duration-300 hover:-translate-y-1 animate-fadeIn"
+                style={{ animationDelay: `${index * 100 + 200}ms` }}
               >
                 <div className="w-12 h-12 bg-primary-800 rounded-xl flex items-center justify-center text-white mb-5 group-hover:bg-accent-500 transition-colors">
                   {reason.icon}

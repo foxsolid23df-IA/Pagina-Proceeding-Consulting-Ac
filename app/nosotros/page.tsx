@@ -1,4 +1,14 @@
-"use client";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sobre Nosotros | Proceeding Consulting AC",
+  description:
+    "Conozca a nuestro equipo de expertos en tecnología y seguridad informática. Más de una década brindando soluciones tecnológicas exitosas en Guadalajara, Jalisco.",
+  openGraph: {
+    title: "Sobre Nosotros | Proceeding Consulting AC",
+    description: "Expertos en consultoría de sistemas y seguridad informática con más de una década de experiencia.",
+  },
+};
 
 const values = [
   {

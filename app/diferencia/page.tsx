@@ -1,6 +1,15 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "¿Por Qué Elegirnos? | Diferencia Proceeding",
+  description:
+    "Descubra por qué Proceeding Consulting es la mejor opción en consultoría de sistemas y seguridad empresarial. Equipo certificado, atención personalizada y más de 10 años de experiencia.",
+  openGraph: {
+    title: "La Diferencia Proceeding | Consultoría en Sistemas",
+    description: "Equipo certificado, atención personalizada y más de 10 años de experiencia en tecnología y seguridad empresarial.",
+  },
+};
 
 const stats = [
   { number: "10+", label: "Años de Experiencia" },

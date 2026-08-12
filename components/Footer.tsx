@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -36,12 +38,12 @@ export default function Footer() {
                 "Auditorías de Seguridad",
               ].map((item) => (
                 <li key={item}>
-                  <a
-                    href="#servicios"
+                  <Link
+                    href="/servicios"
                     className="text-gray-400 hover:text-accent-400 text-sm transition-colors"
                   >
                     {item}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -54,18 +56,18 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               {[
-                { label: "Inicio", href: "#inicio" },
-                { label: "Nosotros", href: "#nosotros" },
-                { label: "Diferencia", href: "#diferencia" },
-                { label: "Contacto", href: "#contacto" },
+                { label: "Inicio", href: "/" },
+                { label: "Nosotros", href: "/nosotros" },
+                { label: "Diferencia", href: "/diferencia" },
+                { label: "Contacto", href: "/contacto" },
               ].map((item) => (
                 <li key={item.label}>
-                  <a
+                  <Link
                     href={item.href}
                     className="text-gray-400 hover:text-accent-400 text-sm transition-colors"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

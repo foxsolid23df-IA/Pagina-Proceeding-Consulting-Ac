@@ -1,18 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { href: "#inicio", label: "Inicio" },
-  { href: "#servicios", label: "Servicios" },
-  { href: "#nosotros", label: "Nosotros" },
-  { href: "#diferencia", label: "Diferencia" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "/", label: "Inicio" },
+  { href: "/servicios", label: "Servicios" },
+  { href: "/nosotros", label: "Nosotros" },
+  { href: "/diferencia", label: "Diferencia" },
+  { href: "/contacto", label: "Contacto" },
 ];
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
@@ -20,10 +23,14 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    setIsMobileOpen(false);
+  }, [pathname]);
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+        isScrolled || pathname !== "/"
           ? "bg-white/95 backdrop-blur-md shadow-lg"
           : "bg-transparent"
       }`}
@@ -31,54 +38,62 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#inicio" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3">
             <div className="w-10 h-10 bg-primary-800 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-xl">P</span>
             </div>
             <div className="flex flex-col">
               <span
                 className={`font-bold text-lg leading-tight transition-colors ${
-                  isScrolled ? "text-primary-900" : "text-white"
+                  isScrolled || pathname !== "/"
+                    ? "text-primary-900"
+                    : "text-white"
                 }`}
               >
                 Proceeding
               </span>
               <span
                 className={`text-xs leading-tight transition-colors ${
-                  isScrolled ? "text-primary-600" : "text-primary-200"
+                  isScrolled || pathname !== "/"
+                    ? "text-primary-600"
+                    : "text-primary-200"
                 }`}
               >
                 Consulting AC
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className={`text-sm font-medium transition-colors hover:text-accent-400 ${
-                  isScrolled ? "text-dark-700" : "text-white/90"
+                  pathname === link.href
+                    ? "text-accent-400 border-b-2 border-accent-400 pb-1"
+                    : isScrolled || pathname !== "/"
+                      ? "text-dark-700"
+                      : "text-white/90"
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
-            <a
-              href="#contacto"
+            <Link
+              href="/solicitar-demo"
               className="bg-accent-500 hover:bg-accent-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all hover:shadow-lg hover:shadow-accent-500/25"
             >
               Solicitar Demo
-            </a>
+            </Link>
           </nav>
 
           {/* Mobile Toggle */}
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
             className={`md:hidden p-2 rounded-lg transition-colors ${
-              isScrolled
+              isScrolled || pathname !== "/"
                 ? "text-dark-900 hover:bg-gray-100"
                 : "text-white hover:bg-white/10"
             }`}
@@ -118,22 +133,26 @@ export default function Header() {
       >
         <div className="bg-white/95 backdrop-blur-md border-t border-gray-100 px-4 py-4 space-y-2">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               onClick={() => setIsMobileOpen(false)}
-              className="block px-4 py-2.5 text-dark-700 hover:bg-primary-50 hover:text-primary-800 rounded-lg transition-colors"
+              className={`block px-4 py-2.5 rounded-lg transition-colors ${
+                pathname === link.href
+                  ? "bg-primary-50 text-primary-800 font-semibold"
+                  : "text-dark-700 hover:bg-primary-50 hover:text-primary-800"
+              }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
-          <a
-            href="#contacto"
+          <Link
+            href="/solicitar-demo"
             onClick={() => setIsMobileOpen(false)}
             className="block bg-accent-500 hover:bg-accent-600 text-white text-center px-4 py-2.5 rounded-lg font-semibold transition-colors"
           >
             Solicitar Demo
-          </a>
+          </Link>
         </div>
       </div>
     </header>

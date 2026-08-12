@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 
 export default function Hero() {
@@ -53,7 +54,6 @@ export default function Hero() {
 
   return (
     <section
-      id="inicio"
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950"
     >
@@ -109,18 +109,18 @@ export default function Hero() {
         </p>
 
         <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href="#servicios"
+          <Link
+            href="/servicios"
             className="w-full sm:w-auto bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all hover:shadow-xl hover:shadow-accent-500/30 hover:-translate-y-0.5"
           >
             Nuestros Servicios
-          </a>
-          <a
-            href="#contacto"
+          </Link>
+          <Link
+            href="/contacto"
             className="w-full sm:w-auto bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all hover:-translate-y-0.5"
           >
             Contactar Ahora
-          </a>
+          </Link>
         </div>
 
         {/* Trust Indicators */}

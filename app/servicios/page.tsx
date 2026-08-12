@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import gsap from "gsap";
 
 const categories = [
   {
@@ -103,27 +102,10 @@ const categories = [
 
 export default function ServiciosPage() {
   const [activeTab, setActiveTab] = useState("sistemas");
-  const pageRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".servicio-animate", {
-        y: 40,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: "power3.out",
-      });
-    }, pageRef);
-
-    return () => ctx.revert();
-  }, [activeTab]);
-
   const activeCategory = categories.find((c) => c.id === activeTab)!;
 
   return (
-    <div ref={pageRef}>
+    <div>
       {/* Hero */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -165,7 +147,7 @@ export default function ServiciosPage() {
             </div>
           </div>
 
-          <div ref={contentRef} key={activeTab}>
+          <div key={activeTab}>
             <div className="text-center mb-10">
               <h2 className="text-2xl font-bold text-dark-900">
                 {activeCategory.title}
@@ -174,10 +156,11 @@ export default function ServiciosPage() {
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {activeCategory.services.map((service) => (
+              {activeCategory.services.map((service, index) => (
                 <div
                   key={service.title}
-                  className="servicio-animate group relative bg-white p-6 rounded-2xl border border-gray-100 hover:border-primary-200 hover:shadow-xl hover:shadow-primary-100/30 transition-all duration-300 hover:-translate-y-1"
+                  className="group relative bg-white p-6 rounded-2xl border border-gray-100 hover:border-primary-200 hover:shadow-xl hover:shadow-primary-100/30 transition-all duration-300 hover:-translate-y-1 animate-fadeIn"
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center text-primary-800 mb-5 group-hover:bg-primary-800 group-hover:text-white transition-colors">
                     {service.icon}
